@@ -1,0 +1,85 @@
+/*primary color*/
+.bg-cream {
+    background-color: #fff7dd;
+}
+
+.bg-orange {
+    background-color: #ff9225;
+}
+
+.bg-maroon {
+    background-color: #ca2323;
+}
+
+.bg-green {
+    background-color: #57B657;
+}
+
+.bg-soft-orange {
+    background-color: #ffdfc0;
+}
+
+.bg-soft-maroon {
+    background-color: #ffc3c3;
+}
+
+.bg-soft-green {
+    background-color: #acf5ac;
+}
+
+.text-green {
+    color: #57B657;
+}
+
+.text-cream {
+    color: #ffd54d;
+}
+
+.text-brown {
+    color: #fed870;
+}
+
+.text-orange {
+    color: #ff9225;
+}
+
+.text-maroon {
+    color: #ca2323;
+}
+
+/*font*/
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bg-yellow-500 {
+    background-color: #ffd54d;
+}
+.text-yellow-500 {
+    color: #F48C06;
+}
+.floating { 
+    animation-name: floating; 
+    animation-duration: 3s; 
+    animation-iteration-count: infinite; 
+    animation-timing-function: ease-in-out;
+} 
+@keyframes floating { 
+    0% { transform: translate(0, 0px); } 
+    50% { transform: translate(0, 8px); } 
+    100% { transform: translate(0, -0px); }  
+} 
+.floating-4 { 
+    animation-name: floating; 
+    animation-duration: 4s; 
+    animation-iteration-count: infinite; 
+    animation-timing-function: ease-in-out;
+} 
+@keyframes floating-4 { 
+    0% { transform: translate(0, 0px); } 
+    50% { transform: translate(0, 8px); } 
+    100% { transform: translate(0, -0px); }  
+}
+.text-darken {
+    color: #286722;
+}

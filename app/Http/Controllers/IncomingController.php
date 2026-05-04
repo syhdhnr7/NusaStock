@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Incoming;
+use App\Models\Inventory;
+
+class IncomingController extends Controller
+{
+
+    public function index()
+    {
+        $inventories = Inventory::all();
+        $incomings = Incoming::all();
+
+        return view('incoming.index', compact('inventories', 'incomings'));
+    }
+    
+    public function getBarang($jenis)
+    {
+        $barang = Inventory::where('jenis_barang', $jenis)->get();
+
+        return response()->json($barang);
+    }
+    public function create()
+    {
+        $inventories = Inventory::all();
+        return view('incoming.create', compact('inventories'));
+    }
+
+    public function store(Request $request)
+    {
+
+        foreach ($request->barang_id as $index => $barangId) {
+
+            $jumlah = $request->jumlah[$index];
+
+            // ambil data barang dari inventory
+            $barang = Inventory::find($barangId);
+
+            if ($barang) {
+
+                // simpan ke tabel incoming
+                Incoming::create([
+                    'jenis_barang' => $barang->jenis_barang,
+                    'nama_barang' => $barang->nama_barang,
+                    'jumlah' => $jumlah,
+                    'tanggal' => $request->tanggal
+                ]);
+
+                // update stok
+                $barang->stok += $jumlah;
+                $barang->save();
+            }
+        }
+
+        return redirect('/transaction')->with('success', 'Data berhasil disimpan');
+    }
+
+
+}

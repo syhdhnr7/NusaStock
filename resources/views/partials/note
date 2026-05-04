@@ -1,0 +1,51 @@
+<li class="nav-item">
+            <p class="font-weight-normal">{{ Auth::user()->name }}&nbsp;&nbsp;|&nbsp;<i>{{ Auth::user()->role }}</i></p>
+        </li>
+
+
+
+
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+              <i class="ti-power-off text-primary"></i>
+              Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
+            @if(Auth::user()->role == 'admin')
+            <li class="nav-item">
+            <a class="nav-link" href="/user">
+                <i class="icon-head menu-icon"></i>
+                <span class="menu-title">User</span>
+            </a>
+            </li>
+            @endif
+
+isi index:
+            <table class="table table-bordered">
+            <thead>
+                <tr class="table-secondary">
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $iteration = 1 @endphp
+                @foreach ($users as $item)
+                <tr>
+                    <td>{{ $iteration++ }}</td>
+                    <td>{{ $item['name'] }}</td>
+                    <td>{{ $item['email'] }}</td>
+                    <td>{{ $item['role'] }}</td>
+                    <td class="text-wrap">{{ $item['password'] }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
