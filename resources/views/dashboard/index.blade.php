@@ -3,7 +3,11 @@
 
 <div class="card shadow">
     <div class="card-body">
-        <h2 class="mt-2 mb-4 text-center">Lakukan Transaksi?</h2>
+        <div class="mt-2 mb-4 text-center">
+            <p class="font-tdb">Lakukan Transaksi?</p>
+            <p>Silahkan pilih jenis transaksi yang ingin Anda lakukan</p>
+        </div>
+
         <hr>
 
         <div class="row mt-4">
@@ -11,13 +15,13 @@
 
             <div class="col-md-3 mb-2">
                 <a href="../incoming" class="btn btn-success w-100">
-                    Barang Masuk
+                    <i class="fas fa-sign-in"></i> &nbsp; Barang Masuk
                 </a>
             </div>
 
             <div class="col-md-3 mb-2">
                 <a href="../outcoming" class="btn btn-danger w-100">
-                    Barang Keluar
+                    <i class="fas fa-sign-out"></i> &nbsp; Barang Keluar
                 </a>
             </div>
             <div class="col-md-3 mb-2"></div>
@@ -27,22 +31,28 @@
 
 <br>
 <div class="card card-body shadow">
-    <h2 class="my-2 text-center">Peringatan Stok!</h2>
+    <div class="mt-2 text-center">
+        <p class="font-tdb">Peringatan Stok!</p>
+        <p>Berikut daftar barang yang memerlukan perhatian terkait stoknya</p>
+    </div>
     <hr>
     <div class="mx-2 my-2 row d-flex align-items-stretch">
 
         {{-- STOK MAKSIMUM --}}
         <div class="col-md-4 mb-2 d-flex">
             <div class="card-body bg-soft-orange border-left-lg border-warning">
-                <div class="mx-2 my-2">
-                    <h3 class="mb-3">Stok Berlebihan</h3>
-                    <p>Berikut daftar barang yang telah mencapai / melewati batas maksimum</p>
+                <div class="mx-1 my-1">
+                    <p class="mb-3 font-cdb">Stok Berlebihan</p>
+                    <!-- <p class="mb-3">Berikut daftar barang yang telah mencapai / melewati batas maksimum</p> -->
 
-                    <ul>
+                    <ul class="font-db list-unstyled">
                         @forelse($stokMaksimum as $item)
-                        <li>{{ $item->nama_barang }} ({{ $item->stok }})</li>
+                        <li class="d-flex justify-content-between align-items-center badge-light-db mb-1">
+                            {{ $item->nama_barang }}
+                            <span class="badge badge-warning">{{ $item->stok }} {{ $item->satuan }}</span>
+                        </li>
                         @empty
-                        <li>Tidak ada stok yang berlebihan</li>
+                        <li class="badge-light-db">Tidak ada stok yang berlebihan</li>
                         @endforelse
                     </ul>
                 </div>
@@ -52,15 +62,18 @@
         {{-- STOK MINIMUM --}}
         <div class="col-md-4 mb-2 d-flex">
             <div class="card-body bg-soft-red border-left-lg border-danger">
-                <div class="mx-2 my-2">
-                    <h3 class="mb-3">Stok Menipis</h3>
-                    <p>Berikut daftar barang yang telah mencapai / melewati batas minimum</p>
+                <div class="mx-1 my-1">
+                    <p class="mb-3 font-cdb">Stok Menipis</p>
+                    <!-- <p class="mb-3">Berikut daftar barang yang telah mencapai / melewati batas minimum</p> -->
 
-                    <ul>
+                    <ul class="font-db list-unstyled">
                         @forelse($stokMinimum as $item)
-                        <li>{{ $item->nama_barang }} ({{ $item->stok }})</li>
+                        <li class="d-flex justify-content-between align-items-center badge-light-db mb-1">
+                            {{ $item->nama_barang }}
+                            <span class="badge badge-danger">{{ $item->stok }} {{ $item->satuan }}</span>
+                        </li>
                         @empty
-                        <li>Tidak ada stok yang menipis</li>
+                        <li class="badge-light-db">Tidak ada stok yang menipis</li>
                         @endforelse
                     </ul>
                 </div>
@@ -70,13 +83,16 @@
         {{-- STOK KOSONG --}}
         <div class="col-md-4 mb-2 d-flex">
             <div class="card-body bg-soft-grey border-left-lg border-grey">
-                <div class="mx-2 my-2">
-                    <h3 class="mb-3">Stok Kosong</h3>
-                    <p>Berikut daftar barang yang stoknya habis atau tidak tersedia</p>
+                <div class="mx-1 my-1">
+                    <p class="mb-3 font-cdb">Stok Kosong</p>
+                    <!-- <p class="mb-3">Berikut daftar barang yang stoknya habis atau tidak tersedia</p> -->
 
-                    <ul>
+                    <ul class="font-db list-unstyled">
                         @forelse($stokKosong as $item)
-                        <li>{{ $item->nama_barang }}</li>
+                        <li class="d-flex justify-content-between align-items-center badge-light-db mb-1">
+                            {{ $item->nama_barang }}
+                            <span class="badge badge-dark">{{ $item->stok }} {{ $item->satuan }}</span>
+                        </li>
                         @empty
                         <li>Tidak ada stok yang kosong</li>
                         @endforelse

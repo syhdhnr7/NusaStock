@@ -23,7 +23,39 @@
     <div class="card card-body shadow">
         <div class="mx-2 my-2">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Riwayat Transaksi</h2>
+                <div>
+                    <h3>Riwayat Transaksi</h3>
+                    <p>Berikut daftar transaksi barang keluar dan barang masuk yang telah dilakukan.</p>
+                </div>
+
+                {{-- FILTER --}}
+                <form method="GET" action="/transaction" class="mb-3">
+                    <div class="d-flex gap-2">
+
+                        <select name="month" class="form-select w-auto">
+                            <option value="">Semua Bulan</option>
+                            @for($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ request('month') == $i ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                                </option>
+                                @endfor
+                        </select>
+
+                        <select name="type" class="form-select w-auto">
+                            <option value="">Semua Jenis</option>
+                            <option value="masuk" {{ request('type') == 'masuk' ? 'selected' : '' }}>Barang Masuk</option>
+                            <option value="keluar" {{ request('type') == 'keluar' ? 'selected' : '' }}>Barang Keluar</option>
+                        </select>
+
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fa fa-magnifying-glass"></i>
+                        </button>
+                        <!-- <a href="/transaction" class="btn btn-secondary">
+                            Reset filter
+                        </a> -->
+
+                    </div>
+                </form>
             </div>
             <hr>
             @if (session('success'))
@@ -31,13 +63,14 @@
                 {{ session('success') }}
             </div>
             @endif
+            <div class="mt-2">
+                @if($transactions->isEmpty())
+                <div class="alert alert-warning text-center">
+                    Data transaksi tidak ditemukan, silahkan pilih bulan atau jenis transaksi yang berbeda.
+                </div>
+                @else
 
-            <div class="mt-4">
                 <div class="table-responsive">
-
-
-                    
-
                     <table class="table border-bottom">
                         <tbody>
                             @foreach ($transactions as $index => $item)
@@ -53,8 +86,8 @@
                                     @endif
                                 </td>
                                 <td class="text-start">{{ $item->nama_barang ?? '-' }}</td>
-                                <td width="35%" class="text-end">{{ $item->tanggal ?? '-' }}</td>
-                                <td width="15%" class="text-end">
+                                <td width="30%" class="text-end">{{ $item->tanggal ?? '-' }}</td>
+                                <td width="10%" class="text-end">
                                     <button
                                         class="btn btn-success btn-sm"
                                         data-bs-toggle="modal"
@@ -69,16 +102,13 @@
                                         Detail
                                     </button>
 
-                                    <!-- <form action="/transaction/delete/{{ $item->type }}/{{ $item->id }}" method="POST" class="d-inline" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                    <form action="/transaction/delete/{{ $item->type }}/{{ $item->id }}" method="POST" class="d-inline" onsubmit="event.preventDefault(); confirmDelete(this);">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>
-
                                         </button>
-
-                                    </form> -->
-
+                                    </form>
                                 </td>
                             </tr>
 
@@ -87,6 +117,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -171,6 +202,7 @@
 
     })
 </script>
+
 <script>
     function confirmDelete(form) {
         Swal.fire({

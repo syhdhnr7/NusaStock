@@ -8,7 +8,7 @@ use App\Models\Outcoming;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $incomings = Incoming::all()->map(function ($item) {
             return (object)[
@@ -45,8 +45,21 @@ class TransactionController extends Controller
                 return $item->created_at . '-' . $item->id;
             });
 
+        // Filter jenis
+        if ($request->filled('type')) {
+            $transactions = $transactions->where('jenis_transaksi', $request->type);
+        }
+
+        // Filter bulan
+        if ($request->filled('month')) {
+            $transactions = $transactions->filter(function ($item) use ($request) {
+                return date('m', strtotime($item->tanggal)) == $request->month;
+            });
+        }
+
         return view('transaction.index', compact('transactions'));
     }
+
     public function destroy($type, $id)
     {
         if ($type == 'incoming') {

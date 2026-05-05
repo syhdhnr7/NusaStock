@@ -11,7 +11,7 @@
 <nav class="navbar col-lg-12 p-0 col-12 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center bg-primary">
     <a class="navbar-brand brand-logo align-center" href="/"><img src="{{ asset('template') }}/images/nusalogo2.png" class="mr-2" style="width:150px; height:50px;" alt="logo" /></a>
-    <a class="navbar-brand brand-logo-mini" href="/"><img src="{{ asset('template') }}/images/nusalogo.png" alt="logo" /></a>
+    <a class="navbar-brand brand-logo-mini" href="/"><img src="{{ asset('template') }}/images/nusalogo_mini.png" alt="logo" /></a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end bg-primary">
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -35,43 +35,17 @@
       </li>
 
       <li class="nav-item">
-        <p class="font-weight-semi-bold text-light">{{ Auth::user()->name }}</p>
+        <p class="font-db text-light">{{ Auth::user()->name }}</p>
       </li>
 
       <li class="nav-item nav-profile">
-        <img class="shadow" src="{{ asset('template') }}/images/nusalogo1.jpg" alt="profile" />
+        <img src="{{ asset('template') }}/images/nusalogo1.jpg" alt="profile" />
       </li>
 
-      <li class="d-flex align-items-center">
-        <a class="btn btn-dark btn-sm" href="{{ route('logout') }}"
-          onclick="event.preventDefault(); confirmLogout();">
-          <i class="ti-power-off"></i>
-          &nbsp; Logout
-        </a>
+      <!-- <li class="d-flex align-items-center">
+        
+      </li> -->
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-          @csrf
-        </form>
-      </li>
-
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script>
-        function confirmLogout() {
-          Swal.fire({
-            title: 'Yakin?',
-            text: "Kamu akan logout dari sistem",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, Logout!',
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#ff4f4f'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              document.getElementById('logout-form').submit();
-            }
-          });
-        }
-      </script>
     </ul>
   </div>
 </nav>

@@ -11279,8 +11279,8 @@ fieldset:disabled .wizard > .actions a,
 
 .btn-danger:hover {
   color: #fff;
-  background-color: #ff2121;
-  border-color: #ff1414;
+  background-color: #e40b0b;
+  border-color: #e40b0b;
 }
 
 .btn-danger:focus, .btn-danger.focus {
@@ -11553,8 +11553,8 @@ fieldset:disabled .wizard > .actions a,
 
 .btn-outline-danger:hover {
   color: #fff;
-  background-color: #FF4747;
-  border-color: #FF4747;
+  background-color: #e40b0b;
+  border-color: #e40b0b;
 }
 
 .btn-outline-danger:focus, .btn-outline-danger.focus {
@@ -14250,7 +14250,7 @@ a.badge-info:focus, .preview-list .preview-item .preview-thumbnail a.badge.badge
 }
 
 .badge-warning, .preview-list .preview-item .preview-thumbnail .badge.badge-busy {
-  color: #212529;
+  color: #000000;
   background-color: #FFC100;
 }
 
@@ -14282,6 +14282,20 @@ a.badge-danger:focus, a.badge-danger.focus {
 .badge-light {
   color: #212529;
   background-color: #f8f9fa;
+}
+
+.badge-light-db {
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  padding: 0.3em 0.4em;
+  font-size: 100%;
+  line-height: 2;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.5rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 a.badge-light:hover, a.badge-light:focus {
@@ -18901,6 +18915,21 @@ button.bg-dark:focus,
 
 .font-weight-bold {
   font-weight: 700 !important;
+}
+
+.font-db {
+  font-weight: 400 !important;
+  font-size: 0.9rem;
+}
+
+.font-cdb {
+  font-weight: 500 !important;
+  font-size: 1.3rem;
+}
+
+.font-tdb {
+  font-weight: 600 !important;
+  font-size: 1.7rem;
 }
 
 .font-weight-bolder {

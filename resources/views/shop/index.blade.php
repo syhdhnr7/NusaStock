@@ -40,7 +40,7 @@
             </div>
             @endif
 
-            <div class="table-responsive mt-4">
+            <div class="table-responsive mt-2">
                 <table class="table table-bordered">
                     <thead>
                         <tr class="table-success">

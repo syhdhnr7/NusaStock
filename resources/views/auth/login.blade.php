@@ -5,23 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/feather/feather.css">
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="{{ asset('template') }}/css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('template') }}/images/favicon.png" />
-</head>
+<@include('../partials/_head')
 
-<body style="background: #57B657;">
+  <body style="background: #57B657;">
   <div class="content-wrapper d-flex align-items-center auth px-0" style="background: #57B657;">
     <div class="row w-100 mx-0">
       <div class="col-lg-8 mx-auto">
@@ -39,13 +25,14 @@
               <div class="brand-logo text-center">
                 <img src="{{ asset('template') }}/images/nusalogo.png" alt="logo" style="width: 120px;">
               </div>
-              <h4 class="text-center">Halo, Selamat Datang!</h4>
-              <h6 class="font-weight-light text-center">Silahkan login untuk melanjutkan.</h6>
+              <h4 class="text-center font-weight-medium">Halo, Selamat Datang!</h4>
+              <p class="font-weight-light text-center">Silahkan login untuk melanjutkan.</p>
 
               <form class="pt-3" method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <div class="form-group">
+                <div class="input-group mb-2 mt-3">
+                  <span class="input-group-text bg-primary text-white"><i class="fas fa-envelope"></i></span>
                   <input id="email" type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Masukkan Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                   @error('email')
@@ -55,7 +42,8 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="input-group mt-3 mb-4">
+                  <span class="input-group-text bg-primary text-white"><i class="text-white fas fa-lock"></i></span>
                   <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password">
 
                   @error('password')
@@ -65,13 +53,13 @@
                   @enderror
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-4">
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                     {{ __('Login') }}
                   </button>
                 </div>
 
-                <div class="my-2 d-flex justify-content-between align-items-center">
+                <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -81,9 +69,9 @@
                   @if (Route::has('password.request'))
                   <a href="{{ route('password.request') }}" class="auth-link text-black">Lupa kata sandi?</a>
                   @endif
-                </div>
+                </div> -->
 
-                <div class="text-center mt-4 font-weight-light">
+                <div class="text-center mt-5 font-weight-light">
                   Belum memiliki akun? <a href="/register" style="color: #00a700;">Daftar</a>
                 </div>
               </form>
@@ -106,7 +94,7 @@
   <script src="{{ asset('template') }}/js/settings.js"></script>
   <script src="{{ asset('template') }}/js/todolist.js"></script>
   <!-- endinject -->
-</body>
+  </body>
 
 </html>
 

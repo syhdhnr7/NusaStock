@@ -5,21 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Registrasi</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/feather/feather.css">
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="{{ asset('template') }}/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="{{ asset('template') }}/css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('template') }}/images/favicon.png" />
-</head>
+<@include('../partials/_head')
 
 <body style="background: #57B657;">
   <div class="content-wrapper d-flex align-items-center auth px-0" style="background: #57B657;">
@@ -39,8 +25,8 @@
               <div class="brand-logo text-center">
                 <img src="{{ asset('template') }}/images/nusalogo.png" alt="logo" style="width: 100px;">
               </div>
-              <h4 class="text-center">Baru bergabung?</h4>
-              <h6 class="font-weight-light text-center">Buat akun sekarang, prosesnya cepat dan mudah.</h6>
+              <h4 class="text-center font-weight-medium">Baru bergabung?</h4>
+              <p class="font-weight-light text-center">Buat akun sekarang, prosesnya cepat dan mudah.</p>
 
               <form class="pt-3" method="POST" action="{{ route('register') }}">
                 @csrf

@@ -24,7 +24,7 @@ class DashboardController extends Controller
             ->get();
 
         // stok mencapai batas maksimum (>= batas_maksimum)
-        $stokMaksimum = Inventory::whereColumn('stok', '>=', 'batas_maksimum')
+        $stokMaksimum = Inventory::whereColumn('stok', '>', 'batas_maksimum')
             ->get();
 
         $chartData = DB::table('inventories')

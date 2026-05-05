@@ -17,7 +17,9 @@
 
         <h3>Transaksi Barang Keluar</h3>
         <hr>
-
+        <div id="alert-error" class="alert alert-danger d-none">
+            Terdapat data yang tidak valid, Mohon periksa kembali inputan Anda.
+        </div>
         <form action="/outcoming" method="POST">
             @csrf
 
@@ -92,6 +94,50 @@
             </a>
         </form>
     </div>
+    
+    <script>
+        document.querySelector("form").addEventListener("submit", function(e) {
+
+            let isValid = true;
+
+            // ambil semua field required
+            const requiredFields = this.querySelectorAll("[required]");
+
+            requiredFields.forEach(field => {
+                if (!field.value || field.value.trim() === "") {
+                    isValid = false;
+                    field.classList.add("is-invalid");
+                } else {
+                    field.classList.remove("is-invalid");
+                }
+            });
+
+            // validasi tambahan untuk array barang & jumlah
+            const barang = document.querySelectorAll(".nama_barang");
+            const jumlah = document.querySelectorAll("input[name='jumlah[]']");
+
+            barang.forEach((b, i) => {
+                if (!b.value || !jumlah[i].value) {
+                    isValid = false;
+                    b.classList.add("is-invalid");
+                    jumlah[i].classList.add("is-invalid");
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+
+                const alertBox = document.getElementById("alert-error");
+                alertBox.classList.remove("d-none");
+
+                // scroll ke atas biar kelihatan
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+        });
+    </script>
 
     <script>
         const jenisSelect = document.getElementById('jenis_barang');

@@ -66,7 +66,7 @@
                 <h1 data-aos="fade-right" data-aos-once="true" class="my-4 text-5xl font-bold leading-tight text-brown">
                     <span class="text-black">NusaStock</span> website pengelolaan <i>inventory</i> UMKM Nusaibah
                 </h1>
-                <p data-aos="fade-down" data-aos-once="true" data-aos-delay="300" class="leading-normal text-2xl mb-8 text-white">Hadir untuk membantu dalam mengelola stok produk, dengan fitur sederhana yang mudah digunakan.</p>
+                <p data-aos="fade-down" data-aos-once="true" data-aos-delay="300" class="leading-normal text-2xl mb-20 text-white">Hadir untuk membantu mengelola stok produk, dengan fitur sederhana yang mudah digunakan.</p>
             </div>
 
             <!--Right Col-->
@@ -83,46 +83,112 @@
         </div>
     </div>
 
-    <!-- lorem -->
+    <!-- CARD KONDISI STOK -->
     <div class="mt-2">
         <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto">
             <h1 class="font-bold text-black text-3xl">Peringatan Stok</h1>
             <p class="text-gray-500">Berikut daftar barang yang stoknya menipis serta daftar barang yang stoknya habis</p>
         </div>
         <div class="flex justify-center">
-            <button class="text-black font-semibold px-8 py-3 mt-4 text-sm text-center bg-black text-white rounded-full md:mt-8 transform transition hover:scale-110 duration-300 ease-in-out" href="#">Laporkan Peringatan Stok</button>
+            @php
+            $pesan = "Halo Admin,\n";
+            $pesan .= "Berikut, laporan kondisi stok pada (" . now()->format('d-m-Y') . ") :\n";
+
+            // Stok Berlebihan
+            if(count($stokMaksimum) > 0){
+            $pesan .= "\nStok Berlebihan:\n";
+            foreach ($stokMaksimum as $item) {
+            $pesan .= "- {$item->nama_barang} : {$item->stok} {$item->satuan}\n";
+            }
+            }
+
+            // Stok Menipis
+            if(count($stokMinimum) > 0){
+            $pesan .= "\nStok Menipis:\n";
+            foreach ($stokMinimum as $item) {
+            $pesan .= "- {$item->nama_barang} : {$item->stok} {$item->satuan}\n";
+            }
+            }
+
+            // Stok Kosong
+            if(count($stokKosong) > 0){
+            $pesan .= "\nStok Kosong:\n";
+            foreach ($stokKosong as $item) {
+            $pesan .= "- {$item->nama_barang}\n";
+            }
+            }
+
+            $pesan .= "\nTerima kasih.";
+            @endphp
+            <a href="https://wa.me/6285298458167?text={{ urlencode($pesan) }}"
+                target="_blank"
+                class="text-black font-semibold px-8 py-3 mt-4 text-sm text-center bg-black text-white rounded-full md:mt-8 transform transition hover:scale-110 duration-300 ease-in-out">
+                Laporkan Kondisi Stok
+            </a>
         </div>
-        <div data-aos="fade-up" class="flex justify-center mt-2 px-4">
-            <div class="bg-white shadow-xl p-8 rounded-2xl w-full max-w-6xl">
-                <div class="grid md:grid-cols-2 gap-6">
 
-                    {{-- STOK MENIPIS --}}
-                    <div class="p-6 rounded-xl bg-red-200 border-l-8 border-red-500 w-full">
-                        <h4 class="text-xl font-semibold mb-4">Stok Menipis</h4>
+        <div class="flex justify-center">
+            <div class="p-4 rounded-2xl w-full max-w-6xl">
 
-                        <ul class="space-y-1">
+                <!-- Card Peringatan Stok -->
+                <div class="grid md:grid-cols-3 gap-14 md:gap-5 mt-2">
+                    <div data-aos="fade-up" class="shadow-xl p-6 text-center rounded-xl">
+                        <div class="bg-soft-orange px-2 py-2 rounded flex items-center justify-center mx-auto shadow-md">
+                            <h1 class="font-semi-bold text-xl lg:px-14 text-black mt-2">Stok Berlebihan</h1>
+                        </div>
+                        <br>
+                        <div class="bg-white">
+                            <ul class="space-y-1 list-none pl-0 mx-1">
+                                @forelse($stokMaksimum as $item)
+                                <div class="border-bottom">
+                                    <li class="d-flex justify-content-between align-items-center mb-1">
+                                        {{ $item->nama_barang }}
+                                        <span class="badge badge-warning">{{ $item->stok }} {{ $item->satuan }}</span>
+                                    </li>
+                                </div>
+                                @empty
+                                <li class="">Tidak ada stok yang berlebihan</li>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="150" class="bg-white shadow-xl p-6 text-center rounded-xl">
+                        <div class="bg-soft-red px-2 py-2 rounded flex items-center justify-center mx-auto shadow-md">
+                            <h1 class="font-semi-bold text-xl lg:px-14 text-black mt-2">Stok Menipis</h1>
+                        </div>
+                        <br>
+                        <ul class="space-y-1 list-none pl-0 mx-1">
                             @forelse($stokMinimum as $item)
-                            <li>{{ $item->nama_barang }} ({{ $item->stok }})</li>
+                            <div class="border-bottom">
+                                <li class="d-flex justify-content-between align-items-center mb-1">
+                                    {{ $item->nama_barang }}
+                                    <span class="badge badge-danger">{{ $item->stok }} {{ $item->satuan }}</span>
+                                </li>
+                            </div>
                             @empty
-                            <li>Tidak ada data</li>
+                            <li class="">Tidak ada stok yang menipis</li>
                             @endforelse
                         </ul>
                     </div>
-
-                    {{-- STOK KOSONG --}}
-                    <div class="p-6 rounded-xl bg-gray-200 border-l-8 border-gray-500 w-full">
-                        <h4 class="text-xl font-semibold mb-4">Stok Kosong</h4>
-
-                        <ul class="space-y-1">
+                    <div data-aos="fade-up" data-aos-delay="300" class="bg-white shadow-xl p-6 text-center rounded-xl">
+                        <div class="bg-gray-200 px-2 py-2 rounded flex items-center justify-center mx-auto shadow-md">
+                            <h1 class="font-semi-bold text-xl lg:px-14 text-black mt-2">Stok Kosong</h1>
+                        </div>
+                        <br>
+                        <ul class="space-y-1 list-none pl-0 mx-1">
                             @forelse($stokKosong as $item)
-                            <li>{{ $item->nama_barang }}</li>
+                            <div class="border-bottom">
+                                <li class="d-flex justify-content-between align-items-center mb-1">
+                                    {{ $item->nama_barang }}
+                                    <span class="badge badge-dark">{{ $item->stok }} {{ $item->satuan }}</span>
+                                </li>
+                            </div>
                             @empty
-                            <li>Tidak ada stok kosong</li>
+                            <li class="">Tidak ada stok yang kosong</li>
                             @endforelse
-                        </ul>
+
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -143,31 +209,36 @@
                     <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div>
                     <div class="card card-body shadow z-40 relative">
                         <div class="mx-2 my-2">
-                            {{-- ================= KEMASAN ================= --}}
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr class="bg-soft-orange">
-                                            <th width="5%">No</th>
-                                            <th width="60%">Nama Barang</th>
-                                            <th width="35%">Stok</th>
-                                        </tr>
-                                    </thead>
+                            {{-- ================= Kemasan ================= --}}
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                    <tbody>
+                                @foreach ($kemasan as $item)
+                                <div class="flex bg-soft-orange rounded overflow-hidden">
 
-                                        @foreach ($kemasan as $index => $item)
+                                    <!-- Gambar -->
+                                    <div class="w-1/3 bg-black flex items-center justify-center border-4 border-orange">
+                                        @if($item->gambar)
+                                        <img src="{{ asset('storage/' . $item->gambar) }}"
+                                            alt="{{ $item->nama_barang }}"
+                                            class="object-cover w-full h-full rounded-sm">
+                                        @else
+                                        <span class="text-center text-xs text-gray-200">Gambar Tidak Tersedia</span>
+                                        @endif
+                                    </div>
 
-                                        <tr>
-                                            <td>{{ $index+1 }}</td>
-                                            <td>{{ $item->nama_barang }}</td>
-                                            <td>{{ $item->stok }} {{ $item->satuan }}</td>
-                                        </tr>
+                                    <!-- Info -->
+                                    <div class="w-2/3 flex flex-col">
+                                        <div class="bg-orange text-white text-center text-sm font-semibold py-2">
+                                            {{ $item->nama_barang }}
+                                        </div>
+                                        <div class="bg-soft-orange text-orange text-center text-lg font-bold py-3">
+                                            {{ $item->stok }} {{ $item->satuan }}
+                                        </div>
+                                    </div>
 
-                                        @endforeach
+                                </div>
+                                @endforeach
 
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -184,30 +255,35 @@
                 <div class="card card-body shadow z-40 relative mb-4">
                     <div class="mx-2 my-2">
                         {{-- ================= Bahan Baku ================= --}}
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-soft-green">
-                                        <th width="5%">No</th>
-                                        <th width="60%">Nama Barang</th>
-                                        <th width="35%">Stok</th>
-                                    </tr>
-                                </thead>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                <tbody>
+                            @foreach ($bahanBaku as $item)
+                            <div class="flex bg-soft-green rounded overflow-hidden">
 
-                                    @foreach ($bahanBaku as $index => $item)
+                                <!-- Gambar -->
+                                <div class="w-1/3 bg-black flex items-center justify-center border-4 border-green">
+                                    @if($item->gambar)
+                                    <img src="{{ asset('storage/' . $item->gambar) }}"
+                                        alt="{{ $item->nama_barang }}"
+                                        class="object-cover w-full h-full rounded-sm">
+                                    @else
+                                    <span class="text-center text-xs text-gray-200">Gambar Tidak Tersedia</span>
+                                    @endif
+                                </div>
 
-                                    <tr>
-                                        <td>{{ $index+1 }}</td>
-                                        <td>{{ $item->nama_barang }}</td>
-                                        <td>{{ $item->stok }} {{ $item->satuan }}</td>
-                                    </tr>
+                                <!-- Info -->
+                                <div class="w-2/3 flex flex-col">
+                                    <div class="bg-green text-white text-center text-sm font-semibold py-2">
+                                        {{ $item->nama_barang }}
+                                    </div>
+                                    <div class="bg-soft-green text-green text-center text-lg font-bold py-3">
+                                        {{ $item->stok }} {{ $item->satuan }}
+                                    </div>
+                                </div>
 
-                                    @endforeach
+                            </div>
+                            @endforeach
 
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -228,32 +304,45 @@
                 <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div>
                 <div class="card card-body shadow z-40 relative">
                     <div class="mx-2 my-2">
+
                         {{-- ================= Produk Jadi ================= --}}
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-soft-maroon">
-                                        <th width="5%">No</th>
-                                        <th width="60%">Nama Barang</th>
-                                        <th width="35%">Stok</th>
-                                    </tr>
-                                </thead>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                <tbody>
+                            @foreach ($produkJadi as $item)
+                            <div class="flex bg-soft-maroon rounded overflow-hidden">
 
-                                    @foreach ($produkJadi as $index => $item)
+                                <!-- Gambar -->
+                                <div class="w-1/3 bg-black flex items-center justify-center border-4 border-maroon">
+                                    @if($item->gambar)
+                                    <img src="{{ asset('storage/' . $item->gambar) }}"
+                                        alt="{{ $item->nama_barang }}"
+                                        class="object-cover w-full h-full rounded-sm">
+                                    @else
+                                    <span class="text-center text-xs text-gray-200">Gambar Tidak Tersedia</span>
+                                    @endif
+                                </div>
 
-                                    <tr>
-                                        <td>{{ $index+1 }}</td>
-                                        <td>{{ $item->nama_barang }}</td>
-                                        <td>{{ $item->stok }} {{ $item->satuan }}</td>
-                                    </tr>
+                                <!-- Info -->
+                                <div class="w-2/3 flex flex-col">
+                                    <div class="bg-maroon text-white text-center text-sm font-semibold py-2">
+                                        {{ $item->nama_barang }}
+                                    </div>
+                                    <div class="bg-soft-maroon text-maroon text-center text-lg font-bold py-3">
+                                        {{ $item->stok }} {{ $item->satuan }}
+                                    </div>
+                                </div>
 
-                                    @endforeach
+                            </div>
+                            @endforeach
 
-                                </tbody>
-                            </table>
                         </div>
+
+                        <!-- Tombol -->
+                        <!-- <div class="text-center mt-6">
+                            <a href="/produk" class="bg-gray-500 text-white px-6 py-2 rounded">
+                                Cek Stok Lainnya
+                            </a>
+                        </div> -->
                     </div>
                 </div>
                 <div class="bg-maroon w-40 h-40 floating absolute rounded-lg z-10 -bottom-3 -right-3"></div>

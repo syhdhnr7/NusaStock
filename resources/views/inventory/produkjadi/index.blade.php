@@ -43,15 +43,15 @@
 
 
             {{-- ================= Produk Jadi ================= --}}
-            <div class="mt-4">
+            <div class="mt-2">
 
-                <div class="table-responsive mt-4">
+                <div class="table-responsive mt-2">
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-success">
                                 <th width="5%">No</th>
-                                <th width="15%">Gambar</th>
-                                <th width="30%">Nama Barang</th>
+                                <th width="10%">Gambar</th>
+                                <th width="35%">Nama Barang</th>
                                 <th width="10%">Stok</th>
                                 <th width="10%">Minimum</th>
                                 <th width="10%">Maksimum</th>

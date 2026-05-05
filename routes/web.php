@@ -11,13 +11,27 @@ use App\Http\Controllers\OutcomingController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\HomeController;
 
+// ====================== LOGIN dan RESET PASSWORD ====================
+
 Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('forgot.password');
+
+Route::post('forgot-password', [UserController::class, 'sendResetLinkEmail'])->name('forgot.password.send');
+
+Route::get('reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('reset.password');
+
+Route::post('reset-password', [UserController::class, 'resetPassword'])->name('reset.password.update');
+
+// ============================== INDEX ==============================
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+
+Route::get('/transaction', [TransactionController::class, 'index'])->middleware('auth');
 
 // ============================== USER ==============================
 

@@ -1,4 +1,5 @@
-/*primary color*/
+
+
 .bg-cream {
     background-color: #fff7dd;
 }
@@ -25,6 +26,21 @@
 
 .bg-soft-green {
     background-color: #acf5ac;
+}
+.border-orange-500{
+border-color: #F98F24;
+}
+
+.border-green{
+border-color: #57B657;
+}
+
+.border-maroon{
+border-color: #ca2323;
+}
+
+.border-orange{
+border-color: #ff9225;
 }
 
 .text-green {

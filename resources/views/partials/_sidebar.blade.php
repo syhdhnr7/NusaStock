@@ -64,16 +64,33 @@
         </ul>
       </div>
     </li>
-    <!-- <li class="nav-item">
-      <a class="nav-link" href="../home">
-        <i class="icon-layout menu-icon"></i>
-        <span class="menu-title">Halaman Pengguna</span>
-      </a>
-    </li>
     <li class="nav-item">
-      <a class="nav-link" href="/user">
-        <i class="icon-head menu-icon"></i>
-        <span class="menu-title">Daftar Pengguna</span>
+      <a class="nav-link" href="{{ route('logout') }}"
+        onclick="event.preventDefault(); confirmLogout();">
+        <i class="ti-power-off menu-icon"></i>
+        <span class="menu-title">Logout</span>
       </a>
-    </li> -->
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+      </form>
+    </li>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      function confirmLogout() {
+        Swal.fire({
+          title: 'Yakin?',
+          text: "Kamu akan logout dari sistem",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Ya, Logout!',
+          cancelButtonText: 'Batal',
+          confirmButtonColor: '#ff4f4f'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            document.getElementById('logout-form').submit();
+          }
+        });
+      }
+    </script>
 </nav>

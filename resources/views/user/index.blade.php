@@ -20,7 +20,8 @@
     @section('content')
     <div class="card card-body shadow">
         <div class="mx-2 my-2">
-            <h2 class="font-weight-medium">Daftar Pengguna</h2>
+            <h3>Daftar Pengguna</h3>
+            <p>Berikut daftar pengguna yang terdaftar di website ini.</p>
             <hr>
             @if (session('success'))
             <div class="alert alert-success">
@@ -28,7 +29,7 @@
             </div>
             @endif
 
-            <div class="table-responsive mt-4">
+            <div class="table-responsive mt-2">
                 <table class="table table-bordered">
                     <thead>
                         <tr class="table-success">

@@ -35,6 +35,9 @@ class HomeController extends Controller
             ->where('stok', '>', 0)
             ->get();
 
+        $stokMaksimum = Inventory::whereColumn('stok', '>', 'batas_maksimum')
+            ->get();
+
         $produkJadi = Inventory::where('jenis_barang', 'produk_jadi')->get();
         $bahanBaku  = Inventory::where('jenis_barang', 'bahan_baku')->get();
         $kemasan    = Inventory::where('jenis_barang', 'kemasan')->get();
@@ -43,6 +46,6 @@ class HomeController extends Controller
         $totalBahanBaku  = Inventory::where('jenis_barang', 'bahan_baku')->sum('stok');
         $totalKemasan    = Inventory::where('jenis_barang', 'kemasan')->sum('stok');
 
-        return view('home', compact('stokKosong', 'stokMinimum', 'produkJadi', 'bahanBaku', 'kemasan', 'totalProdukJadi', 'totalBahanBaku', 'totalKemasan'));
+        return view('home', compact('stokKosong', 'stokMinimum', 'stokMaksimum', 'produkJadi', 'bahanBaku', 'kemasan', 'totalProdukJadi', 'totalBahanBaku', 'totalKemasan'));
     }
 }
