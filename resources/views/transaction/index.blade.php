@@ -71,40 +71,46 @@
                 @else
 
                 <div class="table-responsive">
-                    <table class="table border-bottom">
+                    <table class="table border-bottom-0">
                         <tbody>
                             @foreach ($transactions as $index => $item)
 
-                            <tr class="{{ $item->jenis_transaksi == 'masuk' ? 'border-left-lg border-success bg-soft-green' : ($item->jenis_transaksi == 'keluar' ? 'border-left-lg border-danger bg-soft-red' : '') }}">
+                            <tr class="{{ $item['jenis_transaksi'] == 'masuk' ? 'border-left-lg border-success bg-soft-green' : ($item['jenis_transaksi'] == 'keluar' ? 'border-left-lg border-danger bg-soft-red' : '') }}">
                                 <td width="5%">
-                                    @if ($item->jenis_transaksi == 'masuk')
+                                    @if ($item['jenis_transaksi'] == 'masuk')
                                     <i class="fas fa-sign-in"></i>
-                                    @elseif ($item->jenis_transaksi == 'keluar')
+                                    @elseif ($item['jenis_transaksi'] == 'keluar')
                                     <i class="fas fa-sign-out"></i>
                                     @else
                                     -
                                     @endif
                                 </td>
-                                <td class="text-start">{{ $item->nama_barang ?? '-' }}</td>
-                                <td width="30%" class="text-end">{{ $item->tanggal ?? '-' }}</td>
+
+                                <td class="text-start">{{ $item['nama_barang'] ?? '-' }}</td>
+
+                                <td width="30%" class="text-end">
+                                    {{ $item['tanggal'] ?? '-' }}
+                                </td>
+
                                 <td width="10%" class="text-end">
                                     <button
                                         class="btn btn-success btn-sm"
                                         data-bs-toggle="modal"
                                         data-bs-target="#viewModal"
-                                        data-transaksi="{{ ucwords(str_replace('_', ' ', $item->jenis_transaksi)) }}"
-                                        data-jenis="{{ ucwords(str_replace('_', ' ', $item->jenis_barang)) }}"
-                                        data-nama="{{ $item->nama_barang }}"
-                                        data-tujuan="{{ $item->tujuan }}"
-                                        data-toko="{{ $item->nama_toko ?? '-' }}"
-                                        data-jumlah="{{ $item->jumlah }}"
-                                        data-tanggal="{{ $item->tanggal }}">
+                                        data-transaksi="{{ ucwords(str_replace('_', ' ', $item['jenis_transaksi'])) }}"
+                                        data-jenis="{{ ucwords(str_replace('_', ' ', $item['jenis_barang'])) }}"
+                                        data-nama="{{ $item['nama_barang'] }}"
+                                        data-tujuan="{{ ucwords(str_replace('_', ' ', $item['tujuan'])) }}"
+                                        data-toko="{{ $item['nama_toko'] ?? '-' }}"
+                                        data-jumlah="{{ $item['jumlah'] }} {{ $item['satuan'] }}"
+                                        data-tanggal="{{ $item['tanggal'] }}">
                                         Detail
                                     </button>
 
-                                    <form action="/transaction/delete/{{ $item->type }}/{{ $item->id }}" method="POST" class="d-inline" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                    <form action="/transaction/delete/{{ $item['type'] }}/{{ $item['id'] }}" method="POST" class="d-inline" onsubmit="event.preventDefault(); confirmDelete(this);">
                                         @csrf
                                         @method('DELETE')
+
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>
                                         </button>

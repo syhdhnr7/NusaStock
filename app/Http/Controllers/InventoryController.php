@@ -42,14 +42,7 @@ class InventoryController extends Controller
 
     public function index($jenis)
     {
-        // mapping jenis ke folder
-        if ($jenis == 'bahan_baku') {
-            $folder = 'bahanbaku';
-        } elseif ($jenis == 'kemasan') {
-            $folder = 'kemasan';
-        } else {
-            $folder = 'produkjadi';
-        }
+        $folder = $this->mapFolder($jenis);
 
         $data = Inventory::where('jenis_barang', $jenis)->get();
 
@@ -65,10 +58,8 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
-        // Tentukan satuan otomatis
         $satuan = $request->jenis_barang === 'bahan_baku' ? 'kg' : 'pcs';
 
-        // VALIDASI
         $request->validate([
             'nama_barang' => 'required',
             'jenis_barang' => 'required',
@@ -102,28 +93,25 @@ class InventoryController extends Controller
     public function edit($id)
     {
         $item = Inventory::findOrFail($id);
-
         $folder = $this->mapFolder($item->jenis_barang);
-
         return view("inventory.edit", compact('item'));
     }
 
     public function update(Request $request, $id)
     {
         $inventory = Inventory::findOrFail($id);
-
         $path = $inventory->gambar;
-
         if ($request->hasFile('gambar')) {
 
-            // hapus gambar lama
+            $request->validate([
+                'gambar' => 'image|mimes:jpg,jpeg,png|max:5120'
+            ]);
             if ($inventory->gambar && Storage::exists('public/' . $inventory->gambar)) {
                 Storage::delete('public/' . $inventory->gambar);
             }
 
             $path = $request->file('gambar')->store('gambar', 'public');
         }
-
 
         $inventory->update([
             'nama_barang' => $request->nama_barang,
@@ -144,7 +132,6 @@ class InventoryController extends Controller
     {
         $inventory = Inventory::findOrFail($id);
         $jenis = $inventory->jenis_barang;
-
         $inventory->delete();
 
         return redirect('/inventory/type/' . $jenis)

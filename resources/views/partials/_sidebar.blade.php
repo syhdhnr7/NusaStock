@@ -59,7 +59,7 @@
       </a>
       <div class="collapse" id="tentang-user">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="../home">Halaman User</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/home">Halaman User</a></li>
           <li class="nav-item"> <a class="nav-link" href="/user">Daftar User</a></li>
         </ul>
       </div>

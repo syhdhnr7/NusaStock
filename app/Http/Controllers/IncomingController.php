@@ -16,7 +16,7 @@ class IncomingController extends Controller
 
         return view('incoming.index', compact('inventories', 'incomings'));
     }
-    
+
     public function getBarang($jenis)
     {
         $barang = Inventory::where('jenis_barang', $jenis)->get();
@@ -31,32 +31,24 @@ class IncomingController extends Controller
 
     public function store(Request $request)
     {
-
         foreach ($request->barang_id as $index => $barangId) {
 
             $jumlah = $request->jumlah[$index];
-
-            // ambil data barang dari inventory
             $barang = Inventory::find($barangId);
 
             if ($barang) {
 
-                // simpan ke tabel incoming
                 Incoming::create([
-                    'jenis_barang' => $barang->jenis_barang,
-                    'nama_barang' => $barang->nama_barang,
+                    'inventory_id' => $barang->id,
                     'jumlah' => $jumlah,
                     'tanggal' => $request->tanggal
                 ]);
 
-                // update stok
                 $barang->stok += $jumlah;
                 $barang->save();
             }
         }
 
-        return redirect('/transaction')->with('success', 'Data berhasil disimpan');
+        return redirect('/transaction')->with('success', 'Data barang masuk berhasil disimpan');
     }
-
-
 }

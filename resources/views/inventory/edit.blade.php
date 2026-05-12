@@ -70,7 +70,7 @@
                 required>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-2">
             <label class="form-label">Gambar</label>
 
             <!-- tampilkan gambar lama -->
@@ -96,11 +96,11 @@
         </div>
 
         <br>
-        <button class="btn btn-success mt-2">
+        <button class="btn btn-success">
             Update
         </button>
 
-        <button onclick="goBack()" class="btn btn-secondary mt-2">
+        <button onclick="goBack()" class="btn btn-secondary">
             Kembali
         </button>
 

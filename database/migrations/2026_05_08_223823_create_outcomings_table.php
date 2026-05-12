@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('outcomings', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis_barang', ['bahan_baku', 'kemasan', 'produk_jadi']);
-            $table->string('nama_barang');
-            $table->enum('tujuan', ['pengiriman', 'penggunaan']);
-            $table->string('nama_tujuan');
+            $table->foreignId('inventory_id')
+                ->constrained('inventories')
+                ->onDelete('cascade');
+            $table->foreignId('shop_id')
+                ->nullable()
+                ->constrained('shops')
+                ->nullOnDelete();
+            $table->enum('tujuan', [
+                'penjualan',
+                'penggunaan'
+            ]);
             $table->integer('jumlah');
             $table->date('tanggal');
-
             $table->timestamps();
         });
     }

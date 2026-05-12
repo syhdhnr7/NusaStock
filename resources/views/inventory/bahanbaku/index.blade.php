@@ -74,6 +74,7 @@
                                 <td>{{ $item->batas_minimum }} {{ $item->satuan }}</td>
                                 <td>{{ $item->batas_maksimum }} {{ $item->satuan }}</td>
                                 <td>
+
                                     <button
                                         class="btn btn-success btn-sm"
                                         data-bs-toggle="modal"
@@ -86,6 +87,7 @@
                                         data-jenis="{{ ucwords(str_replace('_', ' ', $item->jenis_barang)) }}">
                                         Lihat
                                     </button>
+                                    
                                     <a href="/inventory/edit/{{ $item->id }}" class="btn btn-warning btn-sm">Edit</a>
                                     <form action="/inventory/{{ $item->id }}" method="POST" class="d-inline"
                                         onsubmit="event.preventDefault(); confirmDelete(this);">

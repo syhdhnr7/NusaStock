@@ -9,9 +9,12 @@ class Incoming extends Model
     protected $table = 'incomings';
 
     protected $fillable = [
-        'jenis_barang',
-        'nama_barang',
+        'inventory_id',
         'jumlah',
         'tanggal'
     ];
+    public function inventory()
+    {
+        return $this->belongsTo(Inventory::class);
+    }
 }

@@ -52,7 +52,7 @@
                             <span class="badge badge-warning">{{ $item->stok }} {{ $item->satuan }}</span>
                         </li>
                         @empty
-                        <li class="badge-light-db">Tidak ada stok yang berlebihan</li>
+                        <li>Tidak ada stok yang berlebihan</li>
                         @endforelse
                     </ul>
                 </div>
@@ -73,7 +73,7 @@
                             <span class="badge badge-danger">{{ $item->stok }} {{ $item->satuan }}</span>
                         </li>
                         @empty
-                        <li class="badge-light-db">Tidak ada stok yang menipis</li>
+                        <li>Tidak ada stok yang menipis</li>
                         @endforelse
                     </ul>
                 </div>

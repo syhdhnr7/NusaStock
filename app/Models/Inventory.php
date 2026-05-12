@@ -11,12 +11,11 @@ class Inventory extends Model
 
     protected $fillable = [
         'nama_barang',
-        'jenis_barang', // bahan baku | kemasan | produk jadi
+        'jenis_barang',
         'stok',
-        'satuan',
         'batas_minimum',
         'batas_maksimum',
-        'gambar'
+        'gambar',
     ];
 
     public function incoming()
@@ -34,7 +33,7 @@ class Inventory extends Model
         return $this->stok <= $this->batas_minimum;
     }
 
-     public function isHighStock()
+    public function isHighStock()
     {
         return $this->stok >= $this->batas_maksimum;
     }

@@ -26,7 +26,6 @@ class OutcomingController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi
         $request->validate([
             'barang_id' => 'required|array',
             'barang_id.*' => 'exists:inventories,id',
@@ -40,15 +39,12 @@ class OutcomingController extends Controller
         foreach ($request->barang_id as $index => $barangId) {
 
             $jumlah = $request->jumlah[$index];
-
             $barang = Inventory::findOrFail($barangId);
 
-            // CEK DULU (sebelum dikurangi)
             if ($barang->stok < $jumlah) {
                 return back()->with('error', 'Stok tidak cukup untuk ' . $barang->nama_barang);
             }
 
-            // Simpan transaksi
             Outcoming::create([
                 'inventory_id' => $barangId,
                 'shop_id' => $request->tujuan == 'pengiriman' ? $request->shop_id : null,
@@ -62,6 +58,6 @@ class OutcomingController extends Controller
             $barang->save();
         }
 
-        return redirect('/transaction')->with('success', 'Data berhasil disimpan');
+        return redirect('/transaction')->with('success', 'Data barang keluar berhasil disimpan');
     }
 }

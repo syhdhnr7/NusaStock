@@ -203,17 +203,17 @@
             <!-- Batas content -->
             <div class="sm:flex items-center sm:space-x-8 mt-20">
                 <div data-aos="fade-right" class="sm:w-1/4 relative">
-                    <h1 class="font-semibold text-3xl relative z-50 text-black lg:pr-10"><span class="text-orange">Daftar Stok</span><br> Kemasan</h1>
+                    <h1 class="font-semibold text-3xl relative z-50 text-black lg:pr-10"><span class="text-orange">Daftar Stok</span><br> Bahan Baku</h1>
                 </div>
                 <div data-aos="fade-left" class="sm:w-3/4 relative mt-10 sm:mt-0">
-                    <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div>
+                    <!-- <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div> -->
                     <div class="card card-body shadow z-40 relative">
-                        <div class="mx-2 my-2">
-                            {{-- ================= Kemasan ================= --}}
+                        <div class="mx-2 my-2" x-data="{ showAll: false }">
+                            {{-- ================= Bahan Baku ================= --}}
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                @foreach ($kemasan as $item)
-                                <div class="flex bg-soft-orange rounded overflow-hidden">
+                                @foreach ($bahanBaku as $index => $item)
+                                <div class="flex bg-soft-orange rounded overflow-hidden" x-show="showAll || {{ $index }} < 9">
 
                                     <!-- Gambar -->
                                     <div class="w-1/3 bg-black flex items-center justify-center border-4 border-orange">
@@ -240,25 +240,53 @@
                                 @endforeach
 
                             </div>
+                            @if($bahanBaku->count() > 9)
+
+                            <div class="mt-4 text-center">
+
+                                <button
+                                    x-show="!showAll"
+                                    @click="showAll = true"
+                                    class="bg-orange text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                    Lihat Lebih Banyak
+
+                                </button>
+
+                                <button
+                                    x-show="showAll"
+                                    @click="showAll = false"
+                                    class="bg-gray-600 text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                    Lihat Lebih Sedikit
+
+                                </button>
+
+                            </div>
+
+                            @endif
+
                         </div>
                     </div>
-                    <div class="bg-orange w-40 h-40 floating absolute rounded-lg z-10 -bottom-3 -right-3"></div>
+                    <!-- <div class="bg-orange w-40 h-40 floating absolute rounded-lg z-10 -bottom-3 -right-3"></div> -->
                 </div>
             </div>
         </div>
 
-        <div class="sm:flex items-center sm:space-x-8 mt-36">
+        <div class="sm:flex items-center sm:space-x-8 mt-24">
             <div data-aos="fade-down" class="md:w-3/4 relative">
-                <div style="background: #57B657" class="w-32 h-32 rounded-full absolute z-0 left-4 -top-12 animate-pulse"></div>
-                <div style="background: #000000;" class="w-5 h-5 rounded-full absolute z-0 left-36 -top-12 animate-ping"></div>
+                <!-- <div style="background: #57B657" class="w-32 h-32 rounded-full absolute z-0 left-4 -top-12 animate-pulse"></div>
+                <div style="background: #000000;" class="w-5 h-5 rounded-full absolute z-0 left-36 -top-12 animate-ping"></div> -->
 
-                <div class="card card-body shadow z-40 relative mb-4">
-                    <div class="mx-2 my-2">
-                        {{-- ================= Bahan Baku ================= --}}
+                <div class="card card-body shadow z-40 relative">
+                    <div class="mx-2 my-2" x-data="{ showAll: false }">
+
+                        {{-- ================= Kemasan ================= --}}
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                            @foreach ($bahanBaku as $item)
-                            <div class="flex bg-soft-green rounded overflow-hidden">
+                            @foreach ($kemasan as $index => $item)
+                            <div class="flex bg-soft-green rounded overflow-hidden" x-show="showAll || {{ $index }} < 9">
 
                                 <!-- Gambar -->
                                 <div class="w-1/3 bg-black flex items-center justify-center border-4 border-green">
@@ -285,31 +313,57 @@
                             @endforeach
 
                         </div>
+
+                        @if($bahanBaku->count() > 9)
+
+                        <div class="mt-4 text-center">
+
+                            <button
+                                x-show="!showAll"
+                                @click="showAll = true"
+                                class="bg-green text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                Lihat Lebih Banyak
+
+                            </button>
+
+                            <button
+                                x-show="showAll"
+                                @click="showAll = false"
+                                class="bg-gray-600 text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                Lihat Lebih Sedikit
+
+                            </button>
+
+                        </div>
+
+                        @endif
                     </div>
                 </div>
 
-                <div style="background: #000000;" class=" w-36 h-36 rounded-full absolute z-0 right-16 -bottom-1 animate-pulse"></div>
-                <div style="background: #57B657;" class=" w-5 h-5 rounded-full absolute z-0 right-52 bottom-1 animate-ping"></div>
+                <!-- <div style="background: #000000;" class=" w-36 h-36 rounded-full absolute z-0 right-16 -bottom-1 animate-pulse"></div>
+                <div style="background: #57B657;" class=" w-5 h-5 rounded-full absolute z-0 right-52 bottom-1 animate-ping"></div> -->
             </div>
             <div data-aos="fade-down" class="md:w-1/4 relative">
-                <h1 class="font-semibold text-3xl relative text-black lg:pl-10 text-right"><span class="text-green">Daftar Stok</span><br>Bahan Baku</h1>
+                <h1 class="font-semibold text-3xl relative text-black lg:pl-10 text-right"><span class="text-green">Daftar Stok</span><br>Kemasan</h1>
             </div>
         </div>
 
-        <div class="sm:flex items-center sm:space-x-8 mt-36">
+        <div class="sm:flex items-center sm:space-x-8 mt-24">
             <div data-aos="fade-right" class="sm:w-1/4 relative">
                 <h1 class="font-semibold text-3xl relative z-50 text-black lg:pr-10"><span class="text-maroon">Daftar Stok</span><br> Produk Jadi</h1>
             </div>
             <div data-aos="fade-left" class="sm:w-3/4 relative mt-10 sm:mt-0">
-                <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div>
+                <!-- <div style="background: #000000;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"></div> -->
                 <div class="card card-body shadow z-40 relative">
-                    <div class="mx-2 my-2">
+                    <div class="mx-2 my-2" x-data="{ showAll: false }">
 
                         {{-- ================= Produk Jadi ================= --}}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                            @foreach ($produkJadi as $item)
-                            <div class="flex bg-soft-maroon rounded overflow-hidden">
+                            @foreach ($produkJadi as $index => $item)
+                            <div class="flex bg-soft-maroon rounded overflow-hidden" x-show="showAll || {{ $index }} < 9">
 
                                 <!-- Gambar -->
                                 <div class="w-1/3 bg-black flex items-center justify-center border-4 border-maroon">
@@ -337,15 +391,34 @@
 
                         </div>
 
-                        <!-- Tombol -->
-                        <!-- <div class="text-center mt-6">
-                            <a href="/produk" class="bg-gray-500 text-white px-6 py-2 rounded">
-                                Cek Stok Lainnya
-                            </a>
-                        </div> -->
+                        @if($bahanBaku->count() > 9)
+
+                        <div class="mt-4 text-center">
+
+                            <button
+                                x-show="!showAll"
+                                @click="showAll = true"
+                                class="bg-maroon text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                Lihat Lebih Banyak
+
+                            </button>
+
+                            <button
+                                x-show="showAll"
+                                @click="showAll = false"
+                                class="bg-gray-600 text-white text-sm px-6 py-2 rounded-3xl transform transition hover:scale-110 duration-300 ease-in-out">
+
+                                Lihat Lebih Sedikit
+
+                            </button>
+
+                        </div>
+
+                        @endif
                     </div>
                 </div>
-                <div class="bg-maroon w-40 h-40 floating absolute rounded-lg z-10 -bottom-3 -right-3"></div>
+                <!-- <div class="bg-maroon w-40 h-40 floating absolute rounded-lg z-10 -bottom-3 -right-3"></div> -->
             </div>
         </div>
 
@@ -360,19 +433,19 @@
         <div class="grid md:grid-cols-3 gap-14 md:gap-5 mt-20">
             <div data-aos="fade-right" data-aos-delay="150" class="bg-white shadow-xl p-6 text-center rounded-xl">
                 <div style="background: #ff9225;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
-                    <i class="fa fa-box fa-2x text-white"></i>
-                </div>
-                <h1 class="font-medium text-xl mb-3 lg:px-14 text-black">Stok Kemasan</h1>
-                <hr>
-                <p class="px-4 text-4xl" style="color: #ff9225;">{{ $totalKemasan }} pcs</p>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="150" class="bg-white shadow-xl p-6 text-center rounded-xl">
-                <div style="background: #1fb90a;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
                     <i class="fa fa-leaf fa-2x text-white"></i>
                 </div>
                 <h1 class="font-medium text-xl mb-3 lg:px-14 text-black">Stok Bahan Baku</h1>
                 <hr>
-                <p class="px-4 text-4xl" style="color: #1fb90a;">{{ $totalBahanBaku }} kg</p>
+                <p class="px-4 text-4xl" style="color: #ff9225;">{{ $totalBahanBaku }} kg</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="150" class="bg-white shadow-xl p-6 text-center rounded-xl">
+                <div style="background: #1fb90a;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
+                    <i class="fa fa-box fa-2x text-white"></i>
+                </div>
+                <h1 class="font-medium text-xl mb-3 lg:px-14 text-black">Stok Kemasan</h1>
+                <hr>
+                <p class="px-4 text-4xl" style="color: #1fb90a;">{{ $totalKemasan }} pcs</p>
             </div>
             <div data-aos="fade-left" data-aos-delay="150" class="bg-white shadow-xl p-6 text-center rounded-xl">
                 <div style="background: #ca2323;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">

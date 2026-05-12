@@ -43,8 +43,15 @@
                 </div>
 
                 <div class="input-group mt-3 mb-4">
-                  <span class="input-group-text bg-primary text-white"><i class="text-white fas fa-lock"></i></span>
-                  <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password">
+                  <span class="input-group-text bg-primary text-white"><i class="fas fa-lock"></i></span>
+                  <input id="password" type="password" class="form-control form-control-lg border-right-0 @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password">
+
+                  <button
+                    type="button"
+                    class="input-group-text bg-white border-left-0"
+                    onclick="togglePassword()">
+                    <i id="eyeIcon" class="fas fa-eye"></i>
+                  </button>
 
                   @error('password')
                   <span class="invalid-feedback" role="alert">
@@ -59,17 +66,17 @@
                   </button>
                 </div>
 
-                <!-- <div class="my-2 d-flex justify-content-between align-items-center">
+                <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                       Ingat saya
                     </label>
                   </div>
-                  @if (Route::has('password.request'))
+                  <!-- @if (Route::has('password.request'))
                   <a href="{{ route('password.request') }}" class="auth-link text-black">Lupa kata sandi?</a>
-                  @endif
-                </div> -->
+                  @endif -->
+                </div>
 
                 <div class="text-center mt-5 font-weight-light">
                   Belum memiliki akun? <a href="/register" style="color: #00a700;">Daftar</a>
@@ -93,6 +100,22 @@
   <script src="{{ asset('template') }}/js/template.js"></script>
   <script src="{{ asset('template') }}/js/settings.js"></script>
   <script src="{{ asset('template') }}/js/todolist.js"></script>
+  <script>
+    function togglePassword() {
+      const password = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+
+      if (password.type === 'password') {
+        password.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        password.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+  </script>
   <!-- endinject -->
   </body>
 

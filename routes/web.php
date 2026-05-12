@@ -11,73 +11,45 @@ use App\Http\Controllers\OutcomingController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\HomeController;
 
-// ====================== LOGIN dan RESET PASSWORD ====================
+// ============================== LOGIN  ============================
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('forgot.password');
-
-Route::post('forgot-password', [UserController::class, 'sendResetLinkEmail'])->name('forgot.password.send');
-
-Route::get('reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('reset.password');
-
-Route::post('reset-password', [UserController::class, 'resetPassword'])->name('reset.password.update');
-
-// ============================== INDEX ==============================
+// ============================== INDEX =============================
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
-
 Route::get('/transaction', [TransactionController::class, 'index'])->middleware('auth');
 
-// ============================== USER ==============================
-
 Route::get('/user', [UserController::class, 'index'])->middleware('auth');
-
 Route::post('/user', [UserController::class, 'store'])->middleware('auth');
 
-// ============================== INVENTORY ==============================
-
 Route::get('/inventory/bahanbaku', [InventoryController::class, 'bahanBaku'])->middleware('auth');
-
 Route::get('/inventory/kemasan', [InventoryController::class, 'kemasan'])->middleware('auth');
-
 Route::get('/inventory/produkjadi', [InventoryController::class, 'produkJadi'])->middleware('auth');
-
 Route::get('/inventory/type/{jenis}', [InventoryController::class, 'index'])->middleware('auth');
 
-// ============================== SHOP ==============================
-
 Route::get('/shop', [ShopController::class, 'index'])->middleware('auth');
-
 Route::post('/shop', [ShopController::class, 'store'])->middleware('auth');
 
-// ============================== INCOMING ==============================
-
 Route::get('/incoming', [IncomingController::class, 'index'])->middleware('auth');
+Route::get('/outcoming', [OutcomingController::class, 'index'])->middleware('auth');
 
-Route::get('/incoming', [IncomingController::class, 'create'])->middleware('auth');
+// ========================= INCOMING & OUTCOMING ========================
 
 Route::post('/incoming', [IncomingController::class, 'store'])->middleware('auth');
 
-Route::get('/get-barang/{jenis}', [IncomingController::class, 'getBarang']);
+Route::get('/incoming', [IncomingController::class, 'create'])->middleware('auth');
 
-// ============================== OUTCOMING ==============================
-
-Route::get('/outcoming', [OutcomingController::class, 'index'])->middleware('auth');
-
-Route::get('/outcoming', [OutcomingController::class, 'create'])->middleware('auth');
+Route::get('/get-barang/{jenis}', [IncomingController::class, 'getBarang'])->middleware('auth');
 
 Route::post('/outcoming', [OutcomingController::class, 'store'])->middleware('auth');
 
-Route::get('/get-barang/{jenis}', [OutcomingController::class, 'getBarang']);
+Route::get('/outcoming', [OutcomingController::class, 'create'])->middleware('auth');
 
-// ============================== TRANSACTION ==============================
-
-Route::get('/transaction', [TransactionController::class, 'index'])->middleware('auth');
+Route::get('/get-barang/{jenis}', [OutcomingController::class, 'getBarang'])->middleware('auth');
 
 // ============================== EDIT ==============================
 
@@ -117,4 +89,4 @@ Auth::routes();
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

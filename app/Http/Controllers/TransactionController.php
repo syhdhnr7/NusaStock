@@ -10,39 +10,46 @@ class TransactionController extends Controller
 {
     public function index(Request $request)
     {
-        $incomings = Incoming::all()->map(function ($item) {
-            return (object)[
-                'id' => $item->id,
-                'type' => 'incoming',
-                'jenis_transaksi' => 'masuk',
-                'jenis_barang' => $item->jenis_barang,
-                'nama_barang' => $item->nama_barang,
-                'tujuan' => '-',
-                'nama_toko' => '-',
-                'jumlah' => $item->jumlah,
-                'tanggal' => $item->tanggal,
-                'created_at' => $item->created_at,
-            ];
-        });
 
-        $outcomings = Outcoming::with(['inventory', 'shop'])->get()->map(function ($item) {
-            return (object)[
-                'id' => $item->id,
-                'type' => 'outcoming',
-                'jenis_transaksi' => 'keluar',
-                'jenis_barang' => $item->inventory->jenis_barang ?? '-',
-                'nama_barang' => $item->inventory->nama_barang ?? '-',
-                'tujuan' => $item->tujuan,
-                'nama_toko' => $item->shop->nama_toko ?? '-',
-                'jumlah' => $item->jumlah,
-                'tanggal' => $item->tanggal,
-                'created_at' => $item->created_at,
-            ];
-        });
+        $incomings = collect(
+            Incoming::with('inventory')->get()->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'incoming',
+                    'jenis_transaksi' => 'masuk',
+                    'jenis_barang' => $item->inventory->jenis_barang ?? '-',
+                    'nama_barang' => $item->inventory->nama_barang ?? '-',
+                    'tujuan' => '-',
+                    'nama_toko' => '-',
+                    'jumlah' => $item->jumlah,
+                    'satuan' => $item->inventory->satuan ?? '-',
+                    'tanggal' => $item->tanggal,
+                    'created_at' => $item->created_at,
+                ];
+            })
+        );
+
+        $outcomings = collect(
+            Outcoming::with(['inventory', 'shop'])->get()->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'outcoming',
+                    'jenis_transaksi' => 'keluar',
+                    'jenis_barang' => $item->inventory->jenis_barang ?? '-',
+                    'nama_barang' => $item->inventory->nama_barang ?? '-',
+                    'tujuan' => $item->tujuan,
+                    'nama_toko' => $item->shop->nama_toko ?? '-',
+                    'jumlah' => $item->jumlah,
+                    'satuan' => $item->inventory->satuan ?? '-',
+                    'tanggal' => $item->tanggal,
+                    'created_at' => $item->created_at,
+                ];
+            })
+        );
 
         $transactions = $incomings->merge($outcomings)
             ->sortByDesc(function ($item) {
-                return $item->created_at . '-' . $item->id;
+                return $item['created_at'] . '-' . $item['id'];
             });
 
         // Filter jenis
@@ -53,7 +60,7 @@ class TransactionController extends Controller
         // Filter bulan
         if ($request->filled('month')) {
             $transactions = $transactions->filter(function ($item) use ($request) {
-                return date('m', strtotime($item->tanggal)) == $request->month;
+                return date('m', strtotime($item['tanggal'])) == $request->month;
             });
         }
 

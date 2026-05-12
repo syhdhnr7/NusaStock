@@ -27,6 +27,11 @@
 .bg-soft-green {
     background-color: #acf5ac;
 }
+
+.border-soft-green {
+    border-color: #acf5ac;
+}
+
 .border-orange-500{
 border-color: #F98F24;
 }

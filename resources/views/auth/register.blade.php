@@ -64,7 +64,7 @@
 
                 <div class="mt-3">
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
-                    {{ __('Register') }}
+                    {{ __('Daftar') }}
                   </button>
                 </div>
 

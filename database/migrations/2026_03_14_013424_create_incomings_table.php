@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('incomings', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis_barang', ['bahan_baku', 'kemasan', 'produk_jadi']);
-            $table->string('nama_barang');
+            $table->foreignId('inventory_id')
+                ->constrained('inventories')
+                ->onDelete('cascade');
             $table->integer('jumlah');
             $table->date('tanggal');
             $table->timestamps();
