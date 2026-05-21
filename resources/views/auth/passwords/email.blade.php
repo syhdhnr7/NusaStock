@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<@include('../../partials/_head')
+@include('../../partials/_head')
 
-    <body style="background: #57B657;">
+<body style="background: #57B657;">
     <div class="content-wrapper d-flex align-items-center auth px-0" style="background: #57B657;">
         <div class="row w-100 mx-0">
             <div class="col-lg-4 mx-auto">
@@ -17,18 +17,23 @@
                             <img src="{{ asset('template') }}/images/nusalogo.png" alt="logo" style="width: 120px;">
                         </div>
                         <h4 class="text-center font-weight-medium">Bantuan Kata Sandi</h4>
-                        <p class="font-weight-light text-center">Silahkan masukkan email Anda untuk meminta link reset kata sandi.</p>
-
-                        <form method="POST" action="{{ route('password.email') }}">
+                        <p class="font-weight-light text-center mb-4">Silahkan masukkan nama anda untuk lanjut mengganti kata sandi.</p>
+                        @if (session('error'))
+                        <div class="alert alert-danger mt-2">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+                        <form method="POST" action="{{ route('password.check') }}">
                             @csrf
-                            <div class="input-group mt-4">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                <input type="email" name="email" class="form-control form-control-lg" required placeholder="Masukkan Email">
+                            <div class="input-group mt-2">
+                                <input type="text"
+                                    name="name"
+                                    placeholder="Masukkan Nama" class="form-control form-control-lg">
                             </div>
 
                             <div class="mt-4 mb-3">
                                 <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
-                                    {{ __('Minta Link Reset') }}
+                                    {{ __('Lanjut') }}
                                 </button>
                             </div>
                             <div class="d-flex align-items-center my-2">
@@ -47,7 +52,7 @@
             </div>
         </div>
     </div>
-    </body>
+</body>
 
 </html>
 

@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<@include('../partials/_head')
+@include('../partials/_head')
 
-  <body style="background: #57B657;">
+<body style="background: #57B657;">
   <div class="content-wrapper d-flex align-items-center auth px-0" style="background: #57B657;">
     <div class="row w-100 mx-0">
       <div class="col-lg-8 mx-auto">
@@ -73,9 +73,10 @@
                       Ingat saya
                     </label>
                   </div>
-                  <!-- @if (Route::has('password.request'))
-                  <a href="{{ route('password.request') }}" class="auth-link text-black">Lupa kata sandi?</a>
-                  @endif -->
+                  <a href="{{ route('forgot.password') }}"
+                    class="auth-link text-muted">
+                    Lupa kata sandi?
+                  </a>
                 </div>
 
                 <div class="text-center mt-5 font-weight-light">
@@ -117,7 +118,7 @@
     }
   </script>
   <!-- endinject -->
-  </body>
+</body>
 
 </html>
 

@@ -31,6 +31,14 @@ class IncomingController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'jumlah.*' => 'required|numeric|min:1',
+        ], [
+            'jumlah.*.required' => '*Jumlah barang wajib diisi',
+            'jumlah.*.numeric' => '*Jumlah barang masuk tidak valid',
+            'jumlah.*.min' => '*Jumlah barang masuk tidak valid',
+        ]);
+
         foreach ($request->barang_id as $index => $barangId) {
 
             $jumlah = $request->jumlah[$index];

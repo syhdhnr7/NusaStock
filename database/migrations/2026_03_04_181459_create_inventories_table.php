@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
+            $table->string('nama_barang')->unique();
             $table->enum('jenis_barang', ['bahan_baku', 'kemasan', 'produk_jadi']);
             $table->integer('stok')->default(0);
             $table->enum('satuan', ['kg', 'pcs']);

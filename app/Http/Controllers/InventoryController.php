@@ -58,6 +58,12 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_barang' => 'required|unique:inventories,nama_barang',
+        ], [
+            'nama_barang.unique' => '*Nama barang sudah terdaftar.',
+        ]);
+
         $satuan = $request->jenis_barang === 'bahan_baku' ? 'kg' : 'pcs';
 
         $request->validate([

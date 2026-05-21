@@ -4,7 +4,7 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="mt-2 mb-4 text-center">
-            <p class="font-tdb">Lakukan Transaksi?</p>
+            <h3>Lakukan Transaksi?</h3>
             <p>Silahkan pilih jenis transaksi yang ingin Anda lakukan</p>
         </div>
 
@@ -32,7 +32,7 @@
 <br>
 <div class="card card-body shadow">
     <div class="mt-2 text-center">
-        <p class="font-tdb">Peringatan Stok!</p>
+        <h3>Peringatan Stok!</h3>
         <p>Berikut daftar barang yang memerlukan perhatian terkait stoknya</p>
     </div>
     <hr>

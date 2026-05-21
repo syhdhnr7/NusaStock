@@ -20,6 +20,10 @@
         <div id="alert-error" class="alert alert-danger d-none">
             Terdapat data yang tidak valid, Mohon periksa kembali inputan Anda.
         </div>
+
+
+
+
         <form action="/outcoming" method="POST">
             @csrf
 
@@ -39,7 +43,7 @@
                 <div id="barang-container">
                     <div class="row mb-2 barang-item">
                         <div class="col-md-8">
-                            <select name="barang_id[]" class="form-control nama_barang" required>
+                            <select name="inventory_id[]" class="form-control nama_barang" required>
                                 <option value="">-- Pilih Nama Barang --</option>
                             </select>
                         </div>
@@ -49,6 +53,16 @@
                                 <input type="number" name="jumlah[]" class="form-control" placeholder="Jumlah" required>
                                 <span class="input-group-text">kg / pcs</span>
                             </div>
+                            @error('jumlah.*')
+                            <div class="text-danger mt-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                            @error('inventory_id.*')
+                            <div class="text-danger mt-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-1">
@@ -81,7 +95,7 @@
                 </select>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label>Tanggal</label>
                 <input type="date" name="tanggal" class="form-control" value="{{ date('Y-m-d') }}">
             </div>
@@ -94,7 +108,7 @@
             </a>
         </form>
     </div>
-    
+
     <script>
         document.querySelector("form").addEventListener("submit", function(e) {
 
@@ -169,7 +183,7 @@
 
             row.innerHTML = `
             <div class="col-md-8">
-                <select name="barang_id[]" class="form-control" required>
+                <select name="inventory_id[]" class="form-control" required>
                     <option value="">-- Pilih Nama Barang --</option>
                     ${dataBarang.map(item =>
                         `<option value="${item.id}">${item.nama_barang}</option>`

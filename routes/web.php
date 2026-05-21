@@ -17,6 +17,24 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Auth::routes([
+    'reset' => false,
+]);
+
+Route::get('/forgot-password', function () {
+    return view('auth.passwords.email');
+})->name('forgot.password');
+
+Route::post(
+    '/forgot-password/check',
+    [App\Http\Controllers\Auth\ForgotPasswordController::class, 'checkUsername']
+)->name('password.check');
+
+Route::post(
+    '/forgot-password/reset',
+    [App\Http\Controllers\Auth\ForgotPasswordController::class, 'resetPassword']
+)->name('password.reset');
+
 // ============================== INDEX =============================
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
@@ -85,8 +103,5 @@ Route::delete('/shop/{id}', [ShopController::class, 'destroy'])->middleware('aut
 
 Route::delete('/transaction/delete/{type}/{id}', [TransactionController::class, 'destroy'])->middleware('auth');
 
-Auth::routes();
-
-Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

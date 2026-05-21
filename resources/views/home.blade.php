@@ -120,7 +120,7 @@
 
             $pesan .= "\nTerima kasih.";
             @endphp
-            <a href="https://wa.me/6285298458167?text={{ urlencode($pesan) }}"
+            <a href="https://wa.me/6285326812391?text={{ urlencode($pesan) }}"
                 target="_blank"
                 class="text-black font-semibold px-8 py-3 mt-4 text-sm text-center bg-black text-white rounded-full md:mt-8 transform transition hover:scale-110 duration-300 ease-in-out">
                 Laporkan Kondisi Stok
@@ -196,7 +196,7 @@
     <!-- container -->
     <div class="container px-4 lg:px-8 mx-auto max-w-screen-xl text-gray-700">
         <div id="daftar" class="lg:pt-20">
-            <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mt-24">
+            <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mt-10">
                 <h1 class="font-bold text-black text-3xl">Daftar Stok Dalam Gudang</h1>
                 <p class="text-gray-500">Berikut daftar nama barang beserta informasi stoknya yang tersedia</p>
             </div>

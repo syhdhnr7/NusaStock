@@ -18,6 +18,8 @@
         <h3>Transaksi Barang Masuk</h3>
         <hr>
 
+
+
         <form action="/incoming" method="POST">
             @csrf
 
@@ -47,6 +49,11 @@
                                 <input type="number" name="jumlah[]" class="form-control" placeholder="Jumlah" required>
                                 <span class="input-group-text">kg / pcs</span>
                             </div>
+                            @error('jumlah.*')
+                            <div class="text-danger mt-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-1">
@@ -74,7 +81,7 @@
             </div> -->
 
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label>Tanggal</label>
                 <input type="date" name="tanggal" class="form-control" value="{{ date('Y-m-d') }}">
             </div>

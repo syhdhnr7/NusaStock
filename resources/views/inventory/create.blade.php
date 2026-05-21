@@ -7,6 +7,7 @@
     <h3>Tambah Data Produk</h3>
     <hr>
 
+
     <form action="/inventory/store" method="POST" enctype="multipart/form-data">
 
         @csrf
@@ -16,6 +17,12 @@
             <input type="text" name="nama_barang" class="form-control" required>
         </div>
 
+        @error('nama_barang')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+        @enderror
+        
         <div class="mb-3">
             <label class="form-label">Jenis Barang</label>
             <select name="jenis_barang" class="form-control">

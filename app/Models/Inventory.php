@@ -13,6 +13,7 @@ class Inventory extends Model
         'nama_barang',
         'jenis_barang',
         'stok',
+        'satuan',
         'batas_minimum',
         'batas_maksimum',
         'gambar',
