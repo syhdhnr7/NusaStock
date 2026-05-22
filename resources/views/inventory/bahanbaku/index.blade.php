@@ -27,18 +27,37 @@
                     <h3 class="mb-2">Daftar Bahan Baku</h3>
                     <p>Berikut daftar stok bahan baku yang ada di inventory anda.</p>
                 </div>
-                <a href="/inventory/create" class="btn btn-success">
-                    <i class="fa fa-plus-circle"></i>
-                    &nbsp; Tambah
-                </a>
+                <form action="{{ url('/inventory/type/bahan_baku') }}" method="GET" class="">
+
+                    <div class="input-group">
+                        <input type="text"
+                            name="search"
+                            class="form-control rounded-start-4"
+                            placeholder="Cari nama produk..."
+                            value="{{ request('search') }}">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+
+                </form>
             </div>
+            <a href="/inventory/create" class="btn btn-success mt-2">
+                <i class="fa fa-plus-circle"></i>
+                &nbsp; Tambah
+            </a>
             <hr>
             @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
             @endif
-
+            @if(session('error'))
+            <div class="alert alert-danger text-center mb-2">
+                {{ session('error') }}
+            </div>
+            @endif
             {{-- ================= BAHAN BAKU ================= --}}
             <div class="mt-2">
 
@@ -87,7 +106,7 @@
                                         data-jenis="{{ ucwords(str_replace('_', ' ', $item->jenis_barang)) }}">
                                         Lihat
                                     </button>
-                                    
+
                                     <a href="/inventory/edit/{{ $item->id }}" class="btn btn-warning btn-sm">Edit</a>
                                     <form action="/inventory/{{ $item->id }}" method="POST" class="d-inline"
                                         onsubmit="event.preventDefault(); confirmDelete(this);">
@@ -106,6 +125,7 @@
 
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

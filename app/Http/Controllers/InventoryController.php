@@ -40,11 +40,21 @@ class InventoryController extends Controller
 
     // =========================== INDEX ==============================
 
-    public function index($jenis)
+    public function index(Request $request, $jenis)
     {
         $folder = $this->mapFolder($jenis);
 
-        $data = Inventory::where('jenis_barang', $jenis)->get();
+        $search = $request->search;
+
+        $data = Inventory::where('jenis_barang', $jenis)
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_barang', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        if ($search && $data->isEmpty()) {
+            return back()->with('error', 'Data produk tidak ditemukan');
+        }
 
         return view("inventory.$folder.index", compact('data'));
     }

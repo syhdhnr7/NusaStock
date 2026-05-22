@@ -27,12 +27,27 @@
                     <h3 class="mb-2">Daftar Kemasan</h3>
                     <p>Berikut daftar stok kemasan yang ada di inventory anda.</p>
                 </div>
+                <form action="{{ url('/inventory/type/kemasan') }}" method="GET" class="">
 
-                <a href="/inventory/create" class="btn btn-success">
-                    <i class="fa fa-plus-circle"></i>
-                    &nbsp; Tambah
-                </a>
+                    <div class="input-group">
+                        <input type="text"
+                            name="search"
+                            class="form-control rounded-start-4"
+                            placeholder="Cari nama produk..."
+                            value="{{ request('search') }}">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
+            <a href="/inventory/create" class="btn btn-success mt-2">
+                <i class="fa fa-plus-circle"></i>
+                &nbsp; Tambah
+            </a>
             <hr>
 
             @if (session('success'))
@@ -40,7 +55,11 @@
                 {{ session('success') }}
             </div>
             @endif
-
+            @if(session('error'))
+            <div class="alert alert-danger text-center mb-2">
+                {{ session('error') }}
+            </div>
+            @endif
 
             {{-- ================= KEMASAN ================= --}}
             <div class="mt-2">

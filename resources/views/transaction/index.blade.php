@@ -30,31 +30,42 @@
 
                 {{-- FILTER --}}
                 <form method="GET" action="/transaction" class="mb-3">
-                    <div class="d-flex gap-2">
 
-                        <select name="month" class="form-select w-auto">
+                    <div class="d-flex flex-column flex-md-row gap-2">
+
+                        <select name="month" class="form-select">
                             <option value="">Semua Bulan</option>
+
                             @for($i = 1; $i <= 12; $i++)
-                                <option value="{{ $i }}" {{ request('month') == $i ? 'selected' : '' }}>
+                                <option value="{{ $i }}"
+                                {{ request('month') == $i ? 'selected' : '' }}>
+
                                 {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+
                                 </option>
                                 @endfor
                         </select>
 
-                        <select name="type" class="form-select w-auto">
+                        <select name="type" class="form-select">
                             <option value="">Semua Jenis</option>
-                            <option value="masuk" {{ request('type') == 'masuk' ? 'selected' : '' }}>Barang Masuk</option>
-                            <option value="keluar" {{ request('type') == 'keluar' ? 'selected' : '' }}>Barang Keluar</option>
+
+                            <option value="masuk"
+                                {{ request('type') == 'masuk' ? 'selected' : '' }}>
+                                Barang Masuk
+                            </option>
+
+                            <option value="keluar"
+                                {{ request('type') == 'keluar' ? 'selected' : '' }}>
+                                Barang Keluar
+                            </option>
                         </select>
 
-                        <button class="btn btn-primary btn-sm">
+                        <button class="btn btn-primary px-3">
                             <i class="fa fa-magnifying-glass"></i>
                         </button>
-                        <!-- <a href="/transaction" class="btn btn-secondary">
-                            Reset filter
-                        </a> -->
 
                     </div>
+
                 </form>
             </div>
             <hr>
@@ -65,17 +76,24 @@
             @endif
             <div class="mt-2">
                 @if($transactions->isEmpty())
-                <div class="alert alert-warning text-center">
-                    Data transaksi tidak ditemukan, silahkan pilih bulan atau jenis transaksi yang berbeda.
+                <div class="alert alert-danger text-center">
+                    Data transaksi tidak ditemukan, silahkan pilih bulan atau jenis transaksi yang lain.
                 </div>
                 @else
 
                 <div class="table-responsive">
-                    <table class="table border-bottom-0">
+                    <table class="table">
                         <tbody>
                             @foreach ($transactions as $index => $item)
 
-                            <tr class="{{ $item['jenis_transaksi'] == 'masuk' ? 'border-left-lg border-success bg-soft-green' : ($item['jenis_transaksi'] == 'keluar' ? 'border-left-lg border-danger bg-soft-red' : '') }}">
+                            <tr class="
+                                {{ $item['jenis_transaksi'] == 'masuk'
+                                    ? 'border-left-lg border-left-md border-top-md border-right-md border-success bg-soft-green'
+                                    : ($item['jenis_transaksi'] == 'keluar'
+                                        ? 'border-left-lg border-right-md border-top-md border-danger bg-soft-red'
+                                        : '')
+                                }}
+                            ">
                                 <td width="5%">
                                     @if ($item['jenis_transaksi'] == 'masuk')
                                     <i class="fas fa-sign-in"></i>
